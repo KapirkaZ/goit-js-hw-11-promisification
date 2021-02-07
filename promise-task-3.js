@@ -18,8 +18,31 @@ const makeTransaction = (transaction, onSuccess, onError) => {
   }, delay);
 };
 
+// для промиса
+
+const newMakeTransaction = (transaction) => {
+  const delay = randomIntegerFromInterval(200, 500);
+  return new Promise((resolve, reject) => {
+    let id = transaction.id;
+    setTimeout(() => {
+      const makeProcess = Math.random() > 0.3;
+
+      if (makeProcess) {
+        const result = { id, delay };
+        resolve(result);
+      } else {
+        reject(Error(transaction.id));
+      }
+    }, delay);
+  });
+};
+
 const logSuccess = (id, time) => {
   console.log(`Transaction ${id} processed in ${time}ms`);
+};
+
+const newLogSuccess = (result) => {
+  console.log(`Transaction ${result.id} processed in ${result.delay}ms`);
 };
 
 const logError = (id) => {
@@ -36,10 +59,10 @@ makeTransaction({ id: 73, amount: 100 }, logSuccess, logError);
 /*
  * Должно работать так
  */
-makeTransaction({ id: 70, amount: 150 }).then(logSuccess).catch(logError);
+NewMakeTransaction({ id: 70, amount: 150 }).then(logSuccess).catch(logError);
 
-makeTransaction({ id: 71, amount: 230 }).then(logSuccess).catch(logError);
+NewMakeTransaction({ id: 71, amount: 230 }).then(logSuccess).catch(logError);
 
-makeTransaction({ id: 72, amount: 75 }).then(logSuccess).catch(logError);
+NewMakeTransaction({ id: 72, amount: 75 }).then(logSuccess).catch(logError);
 
-makeTransaction({ id: 73, amount: 100 }).then(logSuccess).catch(logError);
+NewMakeTransaction({ id: 73, amount: 100 }).then(logSuccess).catch(logError);
