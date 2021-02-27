@@ -17,7 +17,7 @@ const makeTransaction = (transaction) => {
         };
         resolve(item);
       } else {
-        reject(transaction.id);
+        reject(transaction.id, delay);
       }
     }, delay);
   });
